@@ -19,7 +19,7 @@ An implementation of VAE Tacotron speech synthesis in TensorFlow. (https://arxiv
 
 1. **Run the demo server**:
    ```
-   python3 demo_server.py --checkpoint /tmp/tacotron-20180906/model.ckpt
+   python3 demo_server.py --checkpoint /tacotron-20180906/model.ckpt
    ```
 
 2. **Point your browser at localhost:9000**

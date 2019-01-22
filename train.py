@@ -92,13 +92,13 @@ def train(log_dir, args):
         loss_window.append(loss)
         message = 'Step %-7d [%.03f sec/step, loss=%.05f, avg_loss=%.05f]' % (
           step, time_window.average, loss, loss_window.average)
-        log(message, slack=(step % args.checkpoint_interval == 0))
 
         if loss > 100 or math.isnan(loss):
           log('Loss exploded to %.05f at step %d!' % (loss, step), slack=True)
           raise Exception('Loss Exploded')
 
         if step % args.summary_interval == 0:
+          log(message)
           log('Writing summary at step: %d' % step)
           summary_writer.add_summary(sess.run(stats), step)
 
@@ -129,7 +129,7 @@ def main():
   parser.add_argument('--hparams', default='',
     help='Hyperparameter overrides as a comma-separated list of name=value pairs')
   parser.add_argument('--restore_step', type=int, help='Global step to restore from checkpoint.')
-  parser.add_argument('--summary_interval', type=int, default=1,
+  parser.add_argument('--summary_interval', type=int, default=50,
     help='Steps between running summary ops.')
   parser.add_argument('--checkpoint_interval', type=int, default=1000,
     help='Steps between writing checkpoints.')
